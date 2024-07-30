@@ -1,5 +1,5 @@
 site_name: Samuelmicer's blog
-site_url: https://samuelmicer.github.io/myblog/
+site_url: https://samuelmicer.github.io/
 
 theme:
   name: material
@@ -118,9 +118,9 @@ plugins:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   # - meta
   - blog:
-      blog_dir: blog
-      authors: true
-      authors_file: "{blog}/.authors.yml"
+      # blog_dir: blog
+      # authors: true
+      # authors_file: "{blog}/.authors.yml"
   - tags
   - glightbox:
       touchNavigation: true
