@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://samuelmicer.github.io/blog/2024/07/30/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/</loc>
+         <lastmod>2024-07-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://samuelmicer.github.io/blog/2024/07/30/inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators/</loc>
          <lastmod>2024-07-31</lastmod>
          <changefreq>daily</changefreq>
@@ -27,6 +32,11 @@
     </url>
     <url>
          <loc>https://samuelmicer.github.io/blog/category/%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/</loc>
+         <lastmod>2024-07-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://samuelmicer.github.io/blog/category/%E6%A2%81%E4%BA%91/</loc>
          <lastmod>2024-07-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
