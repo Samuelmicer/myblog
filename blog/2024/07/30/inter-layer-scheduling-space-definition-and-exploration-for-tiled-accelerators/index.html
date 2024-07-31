@@ -732,6 +732,81 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    <span class="md-ellipsis">
+      SET框架
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SET框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploration-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploration Stage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploration Stage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sa-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      SA Operators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intra-layer-scheduling-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intra-layer Scheduling Engine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluator
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -797,7 +872,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              4 min read
                             
                           </span>
                         </div>
@@ -820,12 +895,15 @@
 <h1 id="inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators">Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators<a class="headerlink" href="#inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators" title="Permanent link">&para;</a></h1>
 <ul>
 <li>作者：马恺声， Cai Jingwei</li>
+<li>单位：清华大学，西安交通大学</li>
+<li>ISCA'23</li>
 </ul>
 <p>研究加速器层间调度。提出了资源分配树Resource Allocation Tree (RA Tree),用来表示不同的空间、时间调度策略。
 基于这个符号，分析不同调度策略对加速器性能、能效的影响。开发端到端的调度框架SET。与SOTA的开源 Tangram 框架
 相比，实现1.78倍的性能提升和13.2%的能源成本降低。</p>
 <!-- more -->
 
+<hr />
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/41da0ba6a7dbe84f678a15619870e5dcd4ada9ed6db11c33a51a429dc800ee7a.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 1" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/41da0ba6a7dbe84f678a15619870e5dcd4ada9ed6db11c33a51a429dc800ee7a.png" width="70%" /></a></p>
 <h3 id="tiled-accelerators">Tiled Accelerators 平铺加速器<a class="headerlink" href="#tiled-accelerators" title="Permanent link">&para;</a></h3>
@@ -844,8 +922,9 @@ RS(row stationary)等等。这一类被作者称之为“启发式时期”(Heur
 <p>层间调度主要有两种启发式模式：顺序模式LS(layer-sequential)和流水线模式LP(layer-pipeline)。LS使用所有计算资源计算一层，逐层计算，
 而LP将不同层的负载分配到不同计算资源上，用流水线的模式进行并行计算。作者认为现有对层间调度的工作仍然处于启发式时期，文章对层间调度
 的空间进行了符号化表示，并且进行了探索和分析。</p>
+<hr />
 <h2 id="ra-tree">RA Tree<a class="headerlink" href="#ra-tree" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 2" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" /></a>  </p>
+<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 2" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" /></a></p>
 <h3 id="_1">总体介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>RA树用来表示资源的分配，资源有两类：空间资源（即计算资源）；时间资源（即计算资源的时间占用）。同时引入了时空图S-T Graph(Spatial-Temporal
 Graph)，用来直观地显示两种资源的分配。</p>
@@ -904,6 +983,41 @@ Graph)，用来直观地显示两种资源的分配。</p>
 <li>需要的缓存容量更小。</li>
 </ol>
 <p>缺点是更小的粒度，会导致探索空间更小，影响计算资源的利用率、能效。</p>
+<h3 id="_5">示例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/be183d266168859c27464f545a3e6477ce468f5b675490b138c28cbfe55d2579.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 5" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/be183d266168859c27464f545a3e6477ce468f5b675490b138c28cbfe55d2579.png" width="100%" /></a>  </p>
+<p>对比Tangram-like策略，SET有更高的数据复用，产生更低的通信开销，降低了NoC和DRAM的通信成本，并且有更低的延迟。</p>
+<hr />
+<h2 id="set">SET框架<a class="headerlink" href="#set" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/0963fe3ec85b2643ab347efd7e10cb8ead863e90c38ca5b23c0fc757f73c889c.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 6" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/0963fe3ec85b2643ab347efd7e10cb8ead863e90c38ca5b23c0fc757f73c889c.png" /></a>  </p>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>SET的优化目标为<span class="arithmatex">\({Energy}^n \times {Delay}^m\)</span>,n和m自己设置。Exploration Stage负责在目标平台上搜索调度策略，Post-process Stage
+负责生成IR和指令。</p>
+<h3 id="exploration-stage">Exploration Stage<a class="headerlink" href="#exploration-stage" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/dd4573c72098310cba0070fdb6e254a6cbce7b0653ab837526a33074a1981707.png" data-type="image" data-width="50%" data-height="auto" data-desc-position="bottom"><img alt="picture 7" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/dd4573c72098310cba0070fdb6e254a6cbce7b0653ab837526a33074a1981707.png" /></a>  </p>
+<p>探索阶段采用模拟退火算法Simulated-annealing(SA)。初始状态将所有Leaf放在一个root T Cut下。一共进行<span class="arithmatex">\(N=\beta L\)</span>次迭代，<span class="arithmatex">\(\beta\)</span>是
+超参数。第n次迭代时，温度为：</p>
+<div class="arithmatex">\[T_n = T_0 \times \frac{1-\frac{n}{N}}{1+\alpha\frac{n}{N}}\]</div>
+<p>其中<span class="arithmatex">\(T_0\)</span>是初始温度，<span class="arithmatex">\(\alpha\)</span>是冷却速度。</p>
+<p>每次迭代中，SA控制器会随机选择Figure 7中的操作来生成新的RA tree。将RA tree发送给Intra-layer调度器，探索可能的partitino、tiling、
+loop order策略。最后最优的调度被送到Evaluator中进行整体评估，得到一个新的开销<span class="arithmatex">\(c'\)</span>。如果开销<span class="arithmatex">\(c'\)</span>低于、之前的开销<span class="arithmatex">\(c\)</span>，则新的RA tree
+被接收，如果高于<span class="arithmatex">\(c\)</span>，则依据概率<span class="arithmatex">\(p=e^\frac{c-c'}{cT_n}\)</span>判断是否接收。</p>
+<h4 id="sa-operators">SA Operators<a class="headerlink" href="#sa-operators" title="Permanent link">&para;</a></h4>
+<p><strong>OP1</strong>: 随机交换两个相邻的叶子节点。要求交换的两个节点之间没有直接或间接的依赖关系。</p>
+<p><strong>OP2</strong>: 随机选择一个叶子节点，将其移动到父节点/祖父节点的另一个Cut下。</p>
+<p><strong>OP3</strong>: 随机选择一个Cut，随机选择其下一组连续的子节点，组成一个新的Cut，放到其父节点下。(创建Cut)</p>
+<p><strong>OP4</strong>: 随机选择一个非根节点的Cut，将其删除，然后将其子节点放到其父节点下。(删除Cut)</p>
+<p><strong>OP5,6</strong>: 随机选择一个Cut，随机倍数地增加/减少其subbatch的大小，同比例地调整其子节点的batch size。</p>
+<p><em>文章中是按照这个OP顺序介绍的，但是OP3和OP4的顺序和Figure 7中展示的顺序相反。</em></p>
+<h4 id="intra-layer-scheduling-engine">Intra-layer Scheduling Engine<a class="headerlink" href="#intra-layer-scheduling-engine" title="Permanent link">&para;</a></h4>
+<p>层内调度器用的是现有工作的方案。</p>
+<h3 id="evaluator">Evaluator<a class="headerlink" href="#evaluator" title="Permanent link">&para;</a></h3>
+<p>总Cost计算公式：</p>
+<div class="arithmatex">\[
+E_{tot}=\sum_{i=0}^{a}\sum_{j=0}^{1}E_{D_j}\times A_{D_{i,j}} + \sum_{k=0}^{c}E_{hop} \times N_k + \sum_{l=0}^{d}E_{T_l}
+\]</div>
+<p>其中 <span class="arithmatex">\(E_{D_j}\)</span> 表示读写DRAM的单位功耗。<span class="arithmatex">\(A_{D_{i,j}}\)</span> 表示第 <span class="arithmatex">\(i\)</span> 个DRAM的读写次数。<span class="arithmatex">\(E_hop\)</span> 表示在相邻的Router之间每hop传输一段数据
+的功耗。<span class="arithmatex">\(N_k\)</span> 表示第 <span class="arithmatex">\(k\)</span> 条数据链路传输的总数据量。<span class="arithmatex">\(E_{T_l}\)</span> 表示第 <span class="arithmatex">\(l\)</span> 个HW-tile的功耗，包含了访存每一级buffer的功耗、MACs的功耗、
+和tile内通信功耗。</p>
 
 
 
