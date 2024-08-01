@@ -8,11 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://samuelmicer.github.io/blog/2024/07/30/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">
+        <link rel="canonical" href="https://samuelmicer.github.io/blog/2024/08/01/%E8%AE%B0%E5%BD%95%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3/">
       
       
-        <link rel="prev" href="../inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators/">
+        <link rel="prev" href="../../../07/31/chimera-an-analytical-optimizing-framework-for-effective-compute-intensive-operators-fusion/">
       
+      
+        <link rel="next" href="../tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -20,7 +22,7 @@
     
     
       
-        <title>FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System - Samuelmicer's blog</title>
+        <title>记录自己的一些突发奇想 - Samuelmicer's blog</title>
       
     
     
@@ -81,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System
+              记录自己的一些突发奇想
             
           </span>
         </div>
@@ -478,6 +480,8 @@
       
         
       
+        
+      
     
     
       
@@ -548,11 +552,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/%E6%A2%81%E4%BA%91/" class="md-nav__link">
+      <a href="../../../../category/%E6%A2%81%E4%BA%91%E7%BB%84/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    梁云
+    梁云组
   </span>
   
 
@@ -594,11 +598,34 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/%E9%A9%AC%E6%81%BA%E5%A3%B0/" class="md-nav__link">
+      <a href="../../../../category/%E9%9A%8F%E7%AC%94/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    马恺声
+    随笔
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E9%A9%AC%E6%81%BA%E5%A3%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    马恺声组
   </span>
   
 
@@ -652,86 +679,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#front-end-analysis-and-schedule-space" class="md-nav__link">
-    <span class="md-ellipsis">
-      前端 Front-end Analysis and Schedule Space
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="前端 Front-end Analysis and Schedule Space">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      analysis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#schedule-space-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schedule Space Generation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#back-end-exploration-and-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      后端 Back-end Exploration and Optimization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="后端 Back-end Exploration and Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      启发式算法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      机器学习方法
+      设计空间探索的对象
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#tileflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      TileFlow
+    </span>
+  </a>
   
 </li>
       
@@ -772,7 +733,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2024-07-30 00:00:00" class="md-ellipsis">July 30, 2024</time>
+                        <time datetime="2024-08-01 00:00:00" class="md-ellipsis">August 1, 2024</time>
                       </div>
                     </li>
                     
@@ -783,8 +744,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/">设计空间探索</a>, 
-                              <a href="../../../../category/%E6%A2%81%E4%BA%91/">梁云</a></span>
+                              <a href="../../../../category/%E9%9A%8F%E7%AC%94/">随笔</a></span>
                         </div>
                       </li>
                     
@@ -795,7 +755,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              1 min read
                             
                           </span>
                         </div>
@@ -815,75 +775,27 @@
         
 
 
-<h1 id="flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system">FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System<a class="headerlink" href="#flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system" title="Permanent link">&para;</a></h1>
-<ul>
-<li>作者：梁云， 郑思泽</li>
-<li>单位：北京大学</li>
-<li>ASPLOS'20</li>
-</ul>
-<p>本文介绍了名为FlexTensor的用于异构系统上张量计算调度探索和优化的框架。利用启发式算法和机器学习方法，系统地对不同硬件、不同调度组成的
-设计空间进行探索优化，寻找最优的调度配置。测试了12种不同的张量计算，在CPU、GPU、FPGA等平台上进行了测试。</p>
+<h1 id="_1">记录自己的一些突发奇想<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <!-- more -->
 
-<hr />
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>目前最广泛的方法是使用高性能张量计算库，例如GPU的cuDNN，Intel CPU的MKL，FPGA的FBLAS等。但是这种高性能库的开发周期相比算法的发展要长
-得多，例如嵌入式设备的神经网络缺少高性能库的支持。其次对于特定的硬件架构，在应用程序、架构、编译级别有大量优化、参数，形成了巨大的搜索
-空间，需要对多方面进行权衡。而且不同的硬件系统在计算、内存等多方面细节差异很大，难以进行移植。</p>
-<p>FlexTensor前端使用python编写的张量计算作为输入，采用静态分析来生成针对特定硬件的调度空间。后端利用基于模拟退火的启发式算法结合Q-learning
-的强化学习方法，寻找最优的调度配置。调度包括loop tiling, loop reordering, loop parallelization, memory customization等。</p>
-<hr />
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="../../../../pictures/FlexTensor/4d31204d187849c50d789bab19ec30e30a934c5b6c8569f4a52c1d047e6aacc2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 0" src="../../../../pictures/FlexTensor/4d31204d187849c50d789bab19ec30e30a934c5b6c8569f4a52c1d047e6aacc2.png" width="70%" /></a></p>
-<p>前端提取统计信息、算子的结构信息。统计信息包括循环维度、循环大小。结构信息包括节点数、每个节点的张量数。前端会基于结构相似性来减少次优
-的设计、调度，来减小搜索空间。</p>
-<hr />
-<h2 id="front-end-analysis-and-schedule-space">前端 Front-end Analysis and Schedule Space<a class="headerlink" href="#front-end-analysis-and-schedule-space" title="Permanent link">&para;</a></h2>
-<h3 id="analysis">analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h3>
-<p>循环分为spatial loop和reduce loop。spatial loop没有数据依赖，可以并行。reduce loop有数据依赖，通常顺序执行。</p>
-<p>(介绍了一堆表示网络参数的符号)</p>
-<p><a class="glightbox" href="../../../../pictures/FlexTensor/59954a6f32cd1eb91aa394ee06d2c9ed4bbb445598e52bf6d7d8be1b13b104d2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 1" src="../../../../pictures/FlexTensor/59954a6f32cd1eb91aa394ee06d2c9ed4bbb445598e52bf6d7d8be1b13b104d2.png" /></a>  </p>
-<p>Table 2展示了调度的原语。先执行split, reorder, fuse可以使得具有相同参数的配置合并，减少搜索空间。</p>
-<p><a class="glightbox" href="../../../../pictures/FlexTensor/a30a6cf0807607e23c495f01d7f20123203b5339482defb881c30c3b4d9cd50a.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 2" src="../../../../pictures/FlexTensor/a30a6cf0807607e23c495f01d7f20123203b5339482defb881c30c3b4d9cd50a.png" /></a>  </p>
-<p>Figure 3展示了GEMM的一个示例。三层循环spilt成12个自循环，然后经过reorder和fuse。外层循环是并行执行的，内层循环向量化(vectorized)。<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<h3 id="schedule-space-generation">Schedule Space Generation<a class="headerlink" href="#schedule-space-generation" title="Permanent link">&para;</a></h3>
-<p>为了减少搜索空间，使用了三种方法。</p>
-<ul>
-<li>限制原语组合的深度。有些原语是可以无限递归的，例如split和fuse，需要限制递归的次数，防止无限递归。</li>
-<li>对参数空间剪枝。split的数量是非常大的，作者发现divisible split(<em>能被整除的分割？</em>)相比其它分割对大多数情况是更高效的，因此split限制使用divisible split。</li>
-<li>针对不同的硬件，采用不同的特定策略。例如CPU只并行化最外层循环，矢量化内层循环。GPU将外层循环绑定到线程块，内层循环绑定到线程。FPGA采用三级流水。</li>
-</ul>
-<p>除了对搜索空间剪枝，作者还考虑重排(rearrange)调度空间，将一维表示的调度映射到高维空间。例如循环大小为L的循环，可以因式分解拆成N各部分，满足
-<span class="arithmatex">\(f_1\times f_2 ... \times f_N=L\)</span>。通过增加方向，将一维的调度<span class="arithmatex">\([f_1, f_2,..., f_n]\)</span>映射到<span class="arithmatex">\(\frac{N\times(N-1)}{2}\)</span>。对于任意的点<span class="arithmatex">\([f_1, f_2,..., f_n]\)</span>，
-其在<span class="arithmatex">\((i,j)\)</span>方向的相邻点<span class="arithmatex">\([g_1, g_2,..., g_n]\)</span>满足<span class="arithmatex">\(g_i&gt;f_i, g_j&lt;f_j\)</span>，且<span class="arithmatex">\(\forall k \neq i, k\neq j, g_k=f_k\)</span>。在这种高维空间，相邻的点具有相似的结构，
-可能会有相似的性能。</p>
-<hr />
-<h2 id="back-end-exploration-and-optimization">后端 Back-end Exploration and Optimization<a class="headerlink" href="#back-end-exploration-and-optimization" title="Permanent link">&para;</a></h2>
-<p>后端搜索时，在搜索空间中<span class="arithmatex">\(G\)</span>会维护一个已经评估过性能的点的集合<span class="arithmatex">\(H\)</span>,每个点都有关联的性能<span class="arithmatex">\(E\)</span>。搜索时需要做出决策：选择<span class="arithmatex">\(H\)</span>中的哪个点作为起点；给定起点<span class="arithmatex">\(p\)</span>，选择
-哪个方向<span class="arithmatex">\(d\)</span>移动，来获得新的点<span class="arithmatex">\(e\)</span>。对于第一个任务，采用基于退火的启发式算法，对于第二个任务，采用Q-learning的强化学习方法。</p>
-<h3 id="_1">启发式算法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>对于<span class="arithmatex">\(H\)</span>中的点<span class="arithmatex">\(p\)</span>，它的性能为<span class="arithmatex">\(E_p\)</span>。探索时会维护一个最佳性能的点，性能记为<span class="arithmatex">\(E^*\)</span>。每次迭代时FlexTensor以概率<span class="arithmatex">\(e^{-\gamma\frac{E^*-E_p}{E^*}}\)</span>选取点<span class="arithmatex">\(p\)</span>作为起点。
-概率<span class="arithmatex">\(E_p\)</span>越接近<span class="arithmatex">\(E^*\)</span>，点<span class="arithmatex">\(p\)</span>被选中作为起点的概率越大。并且可以一次性选取多个点作为起点</p>
-<h3 id="_2">机器学习方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>选取了起点，则需要选择移动的方向，由于方向选择很多，作者采用强化学习的方法来进行选择。</p>
-<p>强化学习中有一个状态集<span class="arithmatex">\(S\)</span>，行动集<span class="arithmatex">\(A\)</span>，奖励函数<span class="arithmatex">\(r\)</span>。对于 <span class="arithmatex">\(s\in S\)</span>，采取行动 <span class="arithmatex">\(a\in A\)</span>，会得到奖励<span class="arithmatex">\(r(s,a)\)</span>。一旦选取了行动，那么状态<span class="arithmatex">\(s_t\)</span>会转移到<span class="arithmatex">\(s_{t+1}=f(s_t,a_t)\)</span>，其中<span class="arithmatex">\(t\)</span>是时间，<span class="arithmatex">\(f\)</span>是状态转移函数。强化学习的目标是通过找到一个好的行动<span class="arithmatex">\(a_t\)</span>，使得奖励 <span class="arithmatex">\(\sum_{t\leq T}r(s_t,a_t)\)</span> 最大，<span class="arithmatex">\(T\)</span>是最大尝试步骤。对于 FlexTensor，探索空间中的点<span class="arithmatex">\(p\)</span>是状态，方向<span class="arithmatex">\(d\)</span>是行动，归一化的奖励设计为 <span class="arithmatex">\(r(p,d)=\frac{E_e-E_p}{E_p}\)</span>，目标函数为<span class="arithmatex">\(E_{sT}=\sum_{t\leq T}r(s_t,a_t)\)</span>。</p>
-<p>作者采用Q-learning方法来最大化目标函数。在Q-learning中，会对所有的行动赋予一个Q值，Q值越大代表行动越好。作者构建了一个由4层全连接层组成的神经网络来估计Q值。为了避免重复的搜索，需要记录下所有已经访问过的点，将新点<span class="arithmatex">\(e\)</span>的结果记录为元组<span class="arithmatex">\((p,e,\frac{E_e-E_p}{E_p})\)</span>。</p>
-<p>Q-learning是一个在线学习算法，在设计空间探索的过程中会对网络进行训练，训练方式与<sup id="fnref:Nature518"><a class="footnote-ref" href="#fn:Nature518">2</a></sup>类似。为了训练四层的网络(记为X)，作者创建了网络的备份(记为Y)。在一开始，X和Y用同样的参数初始化。训练时，对于结果<span class="arithmatex">\((p,e,\frac{E_e-E_p}{E_p})\)</span>，首先用公式计算目标值<span class="arithmatex">\(target=\alpha \times Y(e) + \frac{E_e-E_p}{E_p}\)</span>作为label，其中<span class="arithmatex">\(\alpha\)</span>是超参数。然后使用均方差<span class="arithmatex">\(X(e)-target\)</span>作为损失函数，用AdaDelta算法<sup id="fnref:AdaDelta"><a class="footnote-ref" href="#fn:AdaDelta">3</a></sup>进行反向传播，来更新网络X。最后X的参数会更新到Y中。</p>
-<p>(后面是对CPU、GPU、FPGA的针对性调度以及实验，不写了)</p>
-<div class="footnote">
-<hr />
+<h2 id="_2">设计空间探索的对象<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>汪玉组大多文章是面向NAS的，文章没细看。</p>
+<p>梁云组郑思泽的三篇ASPLOS、HPCA、Micro的文章，分别面向单算子层内调度，算子切tile融合调度，以及算子融合优化。</p>
+<p>目前还没看到专门做架构搜索，探索不同阵列类型、规模、数据流、SRAM、DRAM参数的文章，ZigZag有一点但是没有细讲。可能的原因是即使对于指定的单一硬件，其搜索的参数空间已经非常之大了，再在外面叠加一层，那搜索的难度更加大。而且这类工作主要是针对已有的部署平台，例如CPU、GPU、NPU等，目的不是为了具体应用进行芯片开发。</p>
+<p>目前我的想法是针对特定场景需求(例如在ISP芯片上，低算力低，推理速度需求有限，例如只需要60/120fps)，针对一类算法(CNN为主)，开发综合推理效果好的低成本芯片。这样的优化目标，从探索极致的低延迟、低功耗的部署方案，转变为在满足绝大多数算法特定帧率需求的情况下，开发低功耗、低面积、高能效的芯片。其中的重点在于：</p>
 <ol>
-<li id="fn:1">
-<p>(e)的fuse和unroll编码没看懂，感觉没对应上&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:Nature518">
-<p><a href="https://www.nature.com/articles/nature14236">Mnih, Volodymyr, et al. "Human-level control through deep reinforcement learning." nature 518.7540 (2015): 529-533.</a>&#160;<a class="footnote-backref" href="#fnref:Nature518" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-<li id="fn:AdaDelta">
-<p><a href="https://arxiv.org/abs/1212.5701">Zeiler, Matthew D. "ADADELTA: an adaptive learning rate method." arXiv preprint arXiv:1212.5701 (2012).</a>&#160;<a class="footnote-backref" href="#fnref:AdaDelta" title="Jump back to footnote 3 in the text">&#8617;</a></p>
-</li>
+<li>帧率要求满足下限</li>
+<li>考虑芯片面积，和计算、存储的规模强相关</li>
+<li>考虑功耗，和计算、片内通信、片外通信相关</li>
+<li>考虑多个算法的综合效果，作为整体的优化目标</li>
 </ol>
-</div>
+<h2 id="tileflow">TileFlow<a class="headerlink" href="#tileflow" title="Permanent link">&para;</a></h2>
+<p>TileFlow中对硬件pipeline的描述：</p>
+<blockquote>
+<p>Pipe can reduce latency and improve throughput at the cost of high compute and memory resource usage. But for large shape tiles, Pipe may not be beneficial if the required data cannot be staged in on-chip buffer</p>
+</blockquote>
+<p>有点疑惑。作者认为pipeline需要更高的计算、存储资源开销，对于大的tile，片上的buffer可能存不下。不知道具体作者是怎么对pipeline进行建模的，猜测是计算核心A计算完一个tile，然后把一个tile存储到SRAM中，计算核心B从SRAM中读取这个tile进行计算，然后将结果再存回SRAM中，此时A读取下一个tile进行计算。这样确实会增加缓存开销，</p>
+<p>我实现的是在tile内部的pipeline，A处理完一个tile内的数据可以马上送入fifo，然后B马上从fifo中去读取，这样除了FIFO不需要额外的存储空间，也能减少缓存的读写开销。但是这种方案的缺点在于，和硬件架构以及数据流强耦合。一方面需要不借助共享缓存实现计算核心之间的数据传输，需要增加各个计算核心之间的数据链路，另一方面需要固定外层循环顺序，保证计算核心A的输出数据循环维度与计算核心B的输入数据循环维度一致，否则必须将数据暂存到缓存中，进行额外的数据重排操作。这虽然是对硬件的约束，通用性不足，但是另一方面，这种约束减小了调度的搜索空间，便于提高硬件架构搜索的效率。</p>
 
 
 
@@ -926,7 +838,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators">
+          <a href="../../../07/31/chimera-an-analytical-optimizing-framework-for-effective-compute-intensive-operators-fusion/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Chimera: An Analytical Optimizing Framework for Effective Compute-intensive Operators Fusion">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -936,11 +848,27 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators
+                Chimera: An Analytical Optimizing Framework for Effective Compute-intensive Operators Fusion
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis/" class="md-footer__link md-footer__link--next" aria-label="Next: TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     

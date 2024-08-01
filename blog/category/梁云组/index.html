@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://samuelmicer.github.io/blog/category/%E6%A2%81%E4%BA%91/">
+        <link rel="canonical" href="https://samuelmicer.github.io/blog/category/%E6%A2%81%E4%BA%91%E7%BB%84/">
       
       
         <link rel="prev" href="../%E6%95%B0%E5%AD%A6/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>梁云 - Samuelmicer's blog</title>
+        <title>梁云组 - Samuelmicer's blog</title>
       
     
     
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              梁云
+              梁云组
             
           </span>
         </div>
@@ -480,6 +480,8 @@
       
         
       
+        
+      
     
     
       
@@ -563,7 +565,7 @@
         
   
   <span class="md-ellipsis">
-    梁云
+    梁云组
   </span>
   
 
@@ -606,11 +608,34 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E9%A9%AC%E6%81%BA%E5%A3%B0/" class="md-nav__link">
+      <a href="../%E9%9A%8F%E7%AC%94/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    马恺声
+    随笔
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%A9%AC%E6%81%BA%E5%A3%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    马恺声组
   </span>
   
 
@@ -665,7 +690,7 @@
   <div class="md-content" data-md-component="content">
     <div class="md-content__inner">
       <header class="md-typeset">
-        <h1 id="_1">梁云<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+        <h1 id="_1">梁云组<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
       </header>
       
         <article class="md-post md-post--excerpt">
@@ -674,13 +699,102 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2024-07-30 00:00:00">July 30, 2024</time></li>
+          <time datetime="2024-08-01 00:00:00">August 1, 2024</time></li>
         
           <li class="md-meta__item">
             in
             
               <a href="../%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/" class="md-meta__link">设计空间探索</a>, 
-              <a href="./" class="md-meta__link">梁云</a></li>
+              <a href="./" class="md-meta__link">梁云组</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis"><a class="toclink" href="../../2024/08/01/tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis/">TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis</a></h2>
+<ul>
+<li>作者：郑思泽，梁云</li>
+<li>单位：北京大学</li>
+<li>MICRO'23</li>
+</ul>
+<blockquote>
+<p>Timeloop是一个数据流性能模型，通过写加速器架构配置，软件计算问题描述，以及软硬件的映射文件（mapping），Timeloop就可以给出一个估计的执行性能。这种性能模型，对于AI加速器设计，数据流映射设计，都是有积极意义的。相关的工作还有MAESTRO (MICRO'20)，TENET (ISCA'21)等等。不过这些数据流性能模型都只关注一个算子的映射问题。一个算子，其实就是一个完美循环，是相对容易数学建模和分析的问题。但是现在我们面对的数据流很少有单个算子的了，大部分情况下都要考虑多个算子融合起来。从现在的AI芯片设计也可以看到，NV GPU有Cuda Core和Tensor Core，一边做MMA计算，一边做Vector运算；NPU也是Matrix Core和Vector Core一起使用。这样，我们做一个MMA+Epilogue的融合就非常自然。近年来由于Transformer架构成为DNN主流，很多融合技术都为self-attention结构和MLP结构做了特殊设计，比如FlashAttention，我之前的HPCA工作Chimera也是这个范畴。所以我们认为，现在的数据流性能分析框架也应该演进了，不能再只考虑一个算子。演进的积极意义，一方面是可以针对将来出现的新的架构，设计数据流的时候，可以提供一些性能模型指导，反过来，对于某一融合数据流，设计专门的硬件架构的时候，也可以用这样的模型去估计一下资源怎么分配能满足性能和功耗需求。TileFlow就是基于这样的想法做出来的框架，我们的分析方法是基于Timeloop的方法的演进和扩展。<a href="https://zhuanlan.zhihu.com/p/663790917">(作者注)</a></p>
+</blockquote>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2024/08/01/tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-07-31 00:00:00">July 31, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/" class="md-meta__link">设计空间探索</a>, 
+              <a href="./" class="md-meta__link">梁云组</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="chimera-an-analytical-optimizing-framework-for-effective-compute-intensive-operators-fusion"><a class="toclink" href="../../2024/07/31/chimera-an-analytical-optimizing-framework-for-effective-compute-intensive-operators-fusion/">Chimera: An Analytical Optimizing Framework for Effective Compute-intensive Operators Fusion</a></h2>
+<ul>
+<li>作者：郑思泽，梁云</li>
+<li>单位：北京大学</li>
+<li>HPCA'23</li>
+</ul>
+<p><img alt="picture 0" src="../../pictures/Chimera/daeb23d61dd44ee0abac5ddec531e37296cbc62c72d0cfbfbf7c697456391156.png" width="70%" /></p>
+<blockquote>
+<p>长久以来，我们关注自动程序优化的三个方面：auto-schedule, auto-tensorize, auto-fuse。FlexTensor的工作认为异构系统上的张量程序优化是可以自动化的，在常规的auto-tune基础上，可以进一步自动组合优化原语从而将用户从优化任务中彻底解放；AMOS工作则是讲auto-tensorize问题的自动化进行解决，通过提出指令抽象、匹配算法、定制化代码生成方案实现用户无需关心如何使用特殊指令就可以得到这些特殊硬件的加速福利；Chimera是这系列工作的最后一块拼图，将优化问题拓展到多个算子的场景，将fusion工作的自动化实现出来。总结来说，Chimera是做算子融合优化的，用户提供的是原生的TVM Tensor Expression，得到的结果是一个自动优化而来的融合kernel。Chimera内部容纳了FlexTensor和AMOS的技术积累，同时具有auto-schedule和auto-tensoriz的部分能力。<a href="https://zhuanlan.zhihu.com/p/612913262">(作者注)</a></p>
+</blockquote>
+
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-07-31 00:00:00">July 31, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/" class="md-meta__link">设计空间探索</a>, 
+              <a href="./" class="md-meta__link">梁云组</a></li>
         
         
           
@@ -695,9 +809,9 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system"><a class="toclink" href="../../2024/07/30/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System</a></h2>
+    <h2 id="flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system"><a class="toclink" href="../../2024/07/31/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System</a></h2>
 <ul>
-<li>作者：梁云， 郑思泽</li>
+<li>作者：郑思泽，梁云</li>
 <li>单位：北京大学</li>
 <li>ASPLOS'20</li>
 </ul>
@@ -706,7 +820,7 @@
 
     
       <nav class="md-post__action">
-        <a href="../../2024/07/30/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">
+        <a href="../../2024/07/31/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">
           Continue reading
         </a>
       </nav>

@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://samuelmicer.github.io/blog/2024/07/30/inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators/">
+        <link rel="canonical" href="https://samuelmicer.github.io/blog/2024/08/01/tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis/">
       
       
-        <link rel="prev" href="../%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E5%88%97%E9%97%AE%E9%A2%98/">
+        <link rel="prev" href="../%E8%AE%B0%E5%BD%95%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3/">
       
-      
-        <link rel="next" href="../../31/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators - Samuelmicer's blog</title>
+        <title>TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis - Samuelmicer's blog</title>
       
     
     
@@ -83,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators" class="md-skip">
+        <a href="#tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators
+              TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis
             
           </span>
         </div>
@@ -679,37 +677,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#3d" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      3D融合数据流搜索空间
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="3D融合数据流搜索空间">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tiled-accelerators" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Tiled Accelerators 平铺加速器
+      overview
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#intra-layer-scheduling" class="md-nav__link">
+  <a href="#compute-ordering" class="md-nav__link">
     <span class="md-ellipsis">
-      intra-layer scheduling 层内调度
+      compute ordering
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#inter-layer-scheduling" class="md-nav__link">
+  <a href="#resource-binding" class="md-nav__link">
     <span class="md-ellipsis">
-      inter-layer scheduling 层间调度
+      resource binding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tile-centric-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tile-centric Notation
     </span>
   </a>
   
@@ -721,28 +728,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ra-tree" class="md-nav__link">
-    <span class="md-ellipsis">
-      RA Tree
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RA Tree">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      总体介绍
+      基于树的分析
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="基于树的分析">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      空间、时间资源划分
+      数据搬运开销
     </span>
   </a>
   
@@ -751,25 +749,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      数据流
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hw-tiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      HW-tiles的分配
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lpls" class="md-nav__link">
-    <span class="md-ellipsis">
-      LP和LS的表示
+      资源占用
     </span>
   </a>
   
@@ -778,16 +758,7 @@
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      定性分析
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      示例
+      性能分析
     </span>
   </a>
   
@@ -799,68 +770,20 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#set" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      SET框架
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SET框架">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
+      设计空间探索
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#exploration-stage" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Exploration Stage
+      实验
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Exploration Stage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sa-operators" class="md-nav__link">
-    <span class="md-ellipsis">
-      SA Operators
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intra-layer-scheduling-engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intra-layer Scheduling Engine
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#evaluator" class="md-nav__link">
-    <span class="md-ellipsis">
-      Evaluator
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -901,7 +824,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2024-07-30 00:00:00" class="md-ellipsis">July 30, 2024</time>
+                        <time datetime="2024-08-01 00:00:00" class="md-ellipsis">August 1, 2024</time>
                       </div>
                     </li>
                     
@@ -913,7 +836,7 @@
                             in
                             
                               <a href="../../../../category/%E8%AE%BE%E8%AE%A1%E7%A9%BA%E9%97%B4%E6%8E%A2%E7%B4%A2/">设计空间探索</a>, 
-                              <a href="../../../../category/%E9%A9%AC%E6%81%BA%E5%A3%B0%E7%BB%84/">马恺声组</a></span>
+                              <a href="../../../../category/%E6%A2%81%E4%BA%91%E7%BB%84/">梁云组</a></span>
                         </div>
                       </li>
                     
@@ -924,7 +847,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -944,132 +867,57 @@
         
 
 
-<h1 id="inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators">Inter-layer Scheduling Space Definition and Exploration for Tiled Accelerators<a class="headerlink" href="#inter-layer-scheduling-space-definition-and-exploration-for-tiled-accelerators" title="Permanent link">&para;</a></h1>
+<h1 id="tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis">TileFlow: A Framework for Modeling Fusion Dataflow via Tree-based Analysis<a class="headerlink" href="#tileflow-a-framework-for-modeling-fusion-dataflow-via-tree-based-analysis" title="Permanent link">&para;</a></h1>
 <ul>
-<li>作者：马恺声， Cai Jingwei</li>
-<li>单位：清华大学，西安交通大学</li>
-<li>ISCA'23</li>
+<li>作者：郑思泽，梁云</li>
+<li>单位：北京大学</li>
+<li>MICRO'23</li>
 </ul>
-<p>研究加速器层间调度。提出了资源分配树Resource Allocation Tree (RA Tree),用来表示不同的空间、时间调度策略。
-基于这个符号，分析不同调度策略对加速器性能、能效的影响。开发端到端的调度框架SET。与SOTA的开源 Tangram 框架
-相比，实现1.78倍的性能提升和13.2%的能源成本降低。</p>
+<blockquote>
+<p>Timeloop是一个数据流性能模型，通过写加速器架构配置，软件计算问题描述，以及软硬件的映射文件（mapping），Timeloop就可以给出一个估计的执行性能。这种性能模型，对于AI加速器设计，数据流映射设计，都是有积极意义的。相关的工作还有MAESTRO (MICRO'20)，TENET (ISCA'21)等等。不过这些数据流性能模型都只关注一个算子的映射问题。一个算子，其实就是一个完美循环，是相对容易数学建模和分析的问题。但是现在我们面对的数据流很少有单个算子的了，大部分情况下都要考虑多个算子融合起来。从现在的AI芯片设计也可以看到，NV GPU有Cuda Core和Tensor Core，一边做MMA计算，一边做Vector运算；NPU也是Matrix Core和Vector Core一起使用。这样，我们做一个MMA+Epilogue的融合就非常自然。近年来由于Transformer架构成为DNN主流，很多融合技术都为self-attention结构和MLP结构做了特殊设计，比如FlashAttention，我之前的HPCA工作Chimera也是这个范畴。所以我们认为，现在的数据流性能分析框架也应该演进了，不能再只考虑一个算子。演进的积极意义，一方面是可以针对将来出现的新的架构，设计数据流的时候，可以提供一些性能模型指导，反过来，对于某一融合数据流，设计专门的硬件架构的时候，也可以用这样的模型去估计一下资源怎么分配能满足性能和功耗需求。TileFlow就是基于这样的想法做出来的框架，我们的分析方法是基于Timeloop的方法的演进和扩展。<a href="https://zhuanlan.zhihu.com/p/663790917">(作者注)</a></p>
+</blockquote>
 <!-- more -->
 
-<hr />
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/41da0ba6a7dbe84f678a15619870e5dcd4ada9ed6db11c33a51a429dc800ee7a.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 1" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/41da0ba6a7dbe84f678a15619870e5dcd4ada9ed6db11c33a51a429dc800ee7a.png" width="70%" /></a></p>
-<h3 id="tiled-accelerators">Tiled Accelerators 平铺加速器<a class="headerlink" href="#tiled-accelerators" title="Permanent link">&para;</a></h3>
-<p>加速器的硬件抽象，指支持以下行为的加速器：</p>
+<h2 id="3d">3D融合数据流搜索空间<a class="headerlink" href="#3d" title="Permanent link">&para;</a></h2>
+<h3 id="overview">overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../../pictures/TileFlow/46a7ab1ccc0af98e6b4c095ac5cf51f548af962513dfd135c586887a763aaf61.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 0" src="../../../../pictures/TileFlow/46a7ab1ccc0af98e6b4c095ac5cf51f548af962513dfd135c586887a763aaf61.png" /></a>  </p>
+<p>TileFlow的整体工作流程如Figure 3所示，主要由两部分构成：以tile为中心的表示和基于树的分析。作者定义3D的融合数据流搜索空间包括：计算顺序 compute ordering、资源绑定 resource binding、循环分块 loop tiling。</p>
+<p><a class="glightbox" href="../../../../pictures/TileFlow/e84c9bec69e61cd5e4bd4755d27f56a3323085264b7b3cab9ddeae6d9314b901.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 1" src="../../../../pictures/TileFlow/e84c9bec69e61cd5e4bd4755d27f56a3323085264b7b3cab9ddeae6d9314b901.png" /></a>  </p>
+<h3 id="compute-ordering">compute ordering<a class="headerlink" href="#compute-ordering" title="Permanent link">&para;</a></h3>
+<p>计算顺序包括节点之间tile的计算顺序(operator orders)和tile内部的循环计算顺序(loop orders)。树的结构适合描述这种计算顺序，节点的外部循环可以形成根节点，内部循环可以形成子节点。硬件的抽象包括了多个内存层级，有L0、L1、L2层级。当算子OP1和OP2进行融合时，在tree中表现为OP1的节点被插入到OP2的子节点中，在L1层面融合，如Figure 4&copy;所示。并且OP1和OP2融合后计算得到的tile，与OP3在L2层级融合。计算顺序即OP1计算完一个tile存到L1 cache里，然后计算OP2，重复这些操作直到OP2在L2的tile计算完成。然后用L2中的tile计算OP3。重复上面的操作，直到OP3计算完。</p>
+<h3 id="resource-binding">resource binding<a class="headerlink" href="#resource-binding" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../../pictures/TileFlow/7d0d4e0d88586796fbc2b7707a0056436dbf2a40cd6141df030a5eba345af5c6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 2" src="../../../../pictures/TileFlow/7d0d4e0d88586796fbc2b7707a0056436dbf2a40cd6141df030a5eba345af5c6.png" /></a>  </p>
+<p>资源绑定有多种形式。主要讨论层间的资源绑定原语。结合Figure 4(d)和Table 1解释：</p>
 <ul>
-<li>不同层可以在不同的硬件HW-tile上并行执行，需要硬件支持对每个tile独立控制，以及支持对DRAM并发访问</li>
-<li>支持不同tile之间，tile与DRAM之间通信，有灵活的NOC支持对缓存的并发访存</li>
+<li>Sequential: 每个tile计算的时候完全占用所有的计算资源和存储资源。如果下一层用不到，那么计算完的数据要存放到外部。</li>
+<li>Sharing: 每个tile计算的时候完全占用所有的计算资源，但是存储资源是共享的。</li>
+<li>Parallel: 不同tile同时计算，使用各自的计算资源和存储资源。</li>
+<li>Pipeline: tile按照流水线的行为计算，各自有各自的计算资源。</li>
 </ul>
-<h3 id="intra-layer-scheduling">intra-layer scheduling 层内调度<a class="headerlink" href="#intra-layer-scheduling" title="Permanent link">&para;</a></h3>
-<p>层内调度研究如何将某一层映射到并行计算单元上，将工作负载划分为小块来满足缓存、计算单元的限制，决定每个工作负
-载的计算顺序。其中涉及到相当多的工作，例如OS(output stationary)、WS(weight stationary)、IS(input stationary)、
-RS(row stationary)等等。这一类被作者称之为“启发式时期”(Heuristic Period)。随着研究的深入，层内调度进入了“自动化时期”
-(Automation Period)，提出了各种表示，例如：计算中心表示(Computation-centric notation)、数据中心表示(Data-centric notation)、
-关系中心表示(Relation-centric notation)等等。</p>
-<h3 id="inter-layer-scheduling">inter-layer scheduling 层间调度<a class="headerlink" href="#inter-layer-scheduling" title="Permanent link">&para;</a></h3>
-<p>层间调度主要有两种启发式模式：顺序模式LS(layer-sequential)和流水线模式LP(layer-pipeline)。LS使用所有计算资源计算一层，逐层计算，
-而LP将不同层的负载分配到不同计算资源上，用流水线的模式进行并行计算。作者认为现有对层间调度的工作仍然处于启发式时期，文章对层间调度
-的空间进行了符号化表示，并且进行了探索和分析。</p>
-<hr />
-<h2 id="ra-tree">RA Tree<a class="headerlink" href="#ra-tree" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 2" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/98bfdee695c1ce89951ef216629a16c0b0aaea5df86dfee8eab4f60d514e7994.png" /></a></p>
-<h3 id="_1">总体介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>RA树用来表示资源的分配，资源有两类：空间资源（即计算资源）；时间资源（即计算资源的时间占用）。同时引入了时空图S-T Graph(Spatial-Temporal
-Graph)，用来直观地显示两种资源的分配。</p>
-<p>RA树的节点包括leaf node和cut node，cut又根据空间分割和时间分割的不同，划分为S Cut和T Cut。叶子节点表示处理单个层，叶子节点数量等于DNN的层数。</p>
-<p>每个节点分配一组HW-tiles，成为HW-tile group，负责该组节点的工作负载。每个节点有自己的batch size，每个cut node会分为多个子节点，batch
-也会被切分。Leaf node不会被切分。</p>
-<p>构建RA tree时要考虑层与层之间的依赖关系。Leaf node会根据依赖顺序从左到右来构建RA tree。</p>
-<h3 id="_2">空间、时间资源划分<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/faf10c2672a6e4c07f10dffffcbc251d3d4829f4ac285ee79dcaac5f79010d04.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 3" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/faf10c2672a6e4c07f10dffffcbc251d3d4829f4ac285ee79dcaac5f79010d04.png" /></a>  </p>
-<p><strong>S Cut</strong> 对空间计算资源进行划分。S Cut的子节点并行执行或者流水线执行，取决于是否存在依赖关系。如果存在依赖关系，则后继节点必须等待至少
-一个批次的时间，等待前继节点处理完产生一个批次的输出特征图。如Figure 3 LP所示。L1执行完[0,1]的batch，L2才开始执行。</p>
-<p><strong>T Cut</strong> 对时间资源进行划分，对同一个HW-tile而言，一个T Cut表示的一个batch的工作负载被划分为多个subbatch，不同的subbatch在时间上从左
-到右依次顺序处理。如Figure 3 LS所示。</p>
-<p>对于一个n层的DNN，只考虑树的结构以及两种Cut的类型，划分的空间复杂度为 <span class="arithmatex">\(O((5+2\sqrt{6})^n) \approx O({9.899}^n)\)</span>。如果要计算空间的总大小，
-需要乘以DNN的拓扑阶数，以及每个Cut的subbatch划分数量。</p>
-<h3 id="_3">数据流<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>对于feature map，如果是T cut的子节点，那么fmap会被送到DRAM中。如果是S cut的子节点，当左节点的数据会立即被右子节点消耗时，
-那么数据会从一个HW-tile传输到下一个HW-tile。如果数据独立不会立即被消耗，那么会被存储在DRAM中。</p>
-<p>(<em>难道f ram size 足够的时候，也要存回DRAM？</em>)</p>
-<p>对于Weight，如果是T cut的子节点，每一层的权重会从DRAM中load，如果是S cut的子节点，权重会一直固定在芯片上。</p>
-<p>(<em>难道w ram size 足够的时候，也要不停load？</em>)</p>
-<h3 id="hw-tiles">HW-tiles的分配<a id="HW-tiles的分配"></a><a class="headerlink" href="#hw-tiles" title="Permanent link">&para;</a></h3>
-<p>一般是按照不同层的OPS等比例分配，但是实际情况很难这么理想。</p>
-<ol>
-<li>相同OPS的不同层在同一个硬件上执行效率不同</li>
-<li>不同层之间有数据依赖，不能同时开始计算，至少延迟一个subbatch的时间</li>
-</ol>
-<p>考虑这两个因素，引入了归一化处理时间 Normalized Porcessing Time(NPT)，能计算相关的利用率。由于硬件资源划分是离散的，没法完全根据NPT来成比例
-划分，因此会有bubble，导致利用率下降。</p>
-<h3 id="lpls">LP和LS的表示<a class="headerlink" href="#lpls" title="Permanent link">&para;</a></h3>
-<p>一般节点会被切分成多个segment。LP会分配给每个segment不同的HW-tile，LS会分配给每个segment全部的HW-tile。LP应该是S cut，LS应该是T cut。
-这样调度空间的复杂度为 <span class="arithmatex">\(O(2^n)\)</span>。</p>
-<p>(<em>作者说LS处理有依赖的不同层时，数据会通过NOC传递而不需要经过DRAM。难道不是LP才是这样？</em>)</p>
-<details class="quote">
-<summary>原文</summary>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>In contrast, LS processes each layer in a segment with all the HW-tiles and switches the fmaps of the layers with dependencies 
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>through the on-chip buffer without accessing the DRAM.
-</span></code></pre></div>
-</details>
-<h3 id="_4">定性分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/53093a036b060eebb84319dd7d72e40ca48bb3df4a4cc449788fdd022916c394.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 4" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/53093a036b060eebb84319dd7d72e40ca48bb3df4a4cc449788fdd022916c394.png" /></a>  </p>
-<p>S Cut给每个工作负载分配到的HW-tile group比较小。小的HW-tile好处有：</p>
-<ol>
-<li>更少的数据重复。每个HW-tile都需要有一份input feature拷贝，HW-tile group小意味着拷贝的数据少。</li>
-<li>更大的tile内搜索空间。对于同样大小的subbatch，更少的算力意味着更大的intra-tile搜索空间，可能会带来更高的利用率。</li>
-</ol>
-<p>也有缺点：</p>
-<ol>
-<li>带来建立/退出流水的延迟开销 filling and draining overheads。当处理有数据依赖的层时，需要等待前一层subbatch计算完成。</li>
-<li>气泡开销 bubble overheads。参考<a href="#HW-tiles的分配">HW-tiles的分配</a></li>
-<li>数据预取开销。如果HW-tile group太小没法缓存一层的所有数据，那么会带来额外的DRAM访存开销。</li>
-</ol>
-<p>较小的subbatch有一些好处：</p>
-<ol>
-<li>更小的建立/退出流水的延迟开销 filling and draining overheads。因为计算更细粒度。</li>
-<li>需要的缓存容量更小。</li>
-</ol>
-<p>缺点是更小的粒度，会导致探索空间更小，影响计算资源的利用率、能效。</p>
-<h3 id="_5">示例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/be183d266168859c27464f545a3e6477ce468f5b675490b138c28cbfe55d2579.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 5" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/be183d266168859c27464f545a3e6477ce468f5b675490b138c28cbfe55d2579.png" width="100%" /></a>  </p>
-<p>对比Tangram-like策略，SET有更高的数据复用，产生更低的通信开销，降低了NoC和DRAM的通信成本，并且有更低的延迟。</p>
-<hr />
-<h2 id="set">SET框架<a class="headerlink" href="#set" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/0963fe3ec85b2643ab347efd7e10cb8ead863e90c38ca5b23c0fc757f73c889c.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 6" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/0963fe3ec85b2643ab347efd7e10cb8ead863e90c38ca5b23c0fc757f73c889c.png" /></a>  </p>
-<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
-<p>SET的优化目标为<span class="arithmatex">\({Energy}^n \times {Delay}^m\)</span>,n和m自己设置。Exploration Stage负责在目标平台上搜索调度策略，Post-process Stage
-负责生成IR和指令。</p>
-<h3 id="exploration-stage">Exploration Stage<a class="headerlink" href="#exploration-stage" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/dd4573c72098310cba0070fdb6e254a6cbce7b0653ab837526a33074a1981707.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 7" src="../../../../pictures/Inter-layer%20Scheduling%20Space%20Definition%20and%20Exploration%20for%20Tiled%20Accelerators/dd4573c72098310cba0070fdb6e254a6cbce7b0653ab837526a33074a1981707.png" /></a>  </p>
-<p>探索阶段采用模拟退火算法Simulated-annealing(SA)。初始状态将所有Leaf放在一个root T Cut下。一共进行<span class="arithmatex">\(N=\beta L\)</span>次迭代，<span class="arithmatex">\(\beta\)</span>是
-超参数。第n次迭代时，温度为：</p>
-<div class="arithmatex">\[T_n = T_0 \times \frac{1-\frac{n}{N}}{1+\alpha\frac{n}{N}}\]</div>
-<p>其中<span class="arithmatex">\(T_0\)</span>是初始温度，<span class="arithmatex">\(\alpha\)</span>是冷却速度。</p>
-<p>每次迭代中，SA控制器会随机选择Figure 7中的操作来生成新的RA tree。将RA tree发送给Intra-layer调度器，探索可能的partitino、tiling、
-loop order策略。最后最优的调度被送到Evaluator中进行整体评估，得到一个新的开销<span class="arithmatex">\(c'\)</span>。如果开销<span class="arithmatex">\(c'\)</span>低于、之前的开销<span class="arithmatex">\(c\)</span>，则新的RA tree
-被接收，如果高于<span class="arithmatex">\(c\)</span>，则依据概率<span class="arithmatex">\(p=e^\frac{c-c'}{cT_n}\)</span>判断是否接收。</p>
-<h4 id="sa-operators">SA Operators<a class="headerlink" href="#sa-operators" title="Permanent link">&para;</a></h4>
-<p><strong>OP1</strong>: 随机交换两个相邻的叶子节点。要求交换的两个节点之间没有直接或间接的依赖关系。</p>
-<p><strong>OP2</strong>: 随机选择一个叶子节点，将其移动到父节点/祖父节点的另一个Cut下。</p>
-<p><strong>OP3</strong>: 随机选择一个Cut，随机选择其下一组连续的子节点，组成一个新的Cut，放到其父节点下。(创建Cut)</p>
-<p><strong>OP4</strong>: 随机选择一个非根节点的Cut，将其删除，然后将其子节点放到其父节点下。(删除Cut)</p>
-<p><strong>OP5,6</strong>: 随机选择一个Cut，随机倍数地增加/减少其subbatch的大小，同比例地调整其子节点的batch size。</p>
-<p><em>文章中是按照这个OP顺序介绍的，但是OP3和OP4的顺序和Figure 7中展示的顺序相反。</em></p>
-<h4 id="intra-layer-scheduling-engine">Intra-layer Scheduling Engine<a class="headerlink" href="#intra-layer-scheduling-engine" title="Permanent link">&para;</a></h4>
-<p>层内调度器用的是现有工作的方案。</p>
-<h3 id="evaluator">Evaluator<a class="headerlink" href="#evaluator" title="Permanent link">&para;</a></h3>
-<p>总Cost计算公式：</p>
-<div class="arithmatex">\[
-E_{tot}=\sum_{i=0}^{a}\sum_{j=0}^{1}E_{D_j}\times A_{D_{i,j}} + \sum_{k=0}^{c}E_{hop} \times N_k + \sum_{l=0}^{d}E_{T_l}
-\]</div>
-<p>其中 <span class="arithmatex">\(E_{D_j}\)</span> 表示读写DRAM的单位功耗。<span class="arithmatex">\(A_{D_{i,j}}\)</span> 表示第 <span class="arithmatex">\(i\)</span> 个DRAM的读写次数。<span class="arithmatex">\(E_hop\)</span> 表示在相邻的Router之间每hop传输一段数据
-的功耗。<span class="arithmatex">\(N_k\)</span> 表示第 <span class="arithmatex">\(k\)</span> 条数据链路传输的总数据量。<span class="arithmatex">\(E_{T_l}\)</span> 表示第 <span class="arithmatex">\(l\)</span> 个HW-tile的功耗，包含了访存每一级buffer的功耗、MACs的功耗、
-和tile内通信功耗。</p>
+<p>Pipe形式可以减少延迟，增加吞吐量，代价是更高的计算和内存需求。对于大的tile，Pipe可能没有优势。Para和Pipe类似，但是仅适用于没有数据依赖的情况。Seq对延迟没有改善，但是能节省计算、存储资源，因为一次只能计算一个tile。Share和Seq类似，允许更多数据存在片上，增加数据的locality，但是增加了内存需求。</p>
+<h3 id="tile-centric-notation">Tile-centric Notation<a class="headerlink" href="#tile-centric-notation" title="Permanent link">&para;</a></h3>
+<p>这个简单看看。</p>
+<p>一个内存层级n的tile <span class="arithmatex">\(T_n\)</span>可以表示为：</p>
+<div class="arithmatex">\[T_n={l_1^n,l_2^n,...}(T_{n-1}^1,T_{n-1}^2,...)\]</div>
+<p>其中<span class="arithmatex">\({l_1^n,l_2^n,...}\)</span>是给子tile <span class="arithmatex">\((T_{n-1}^1,T_{n-1}^2,...)\)</span>嵌套(增加)的外层循环。下面展示了Figure 4(a)的一个可能的融合数据流的例子：</p>
+<p><span class="arithmatex">\(level 0: T_0^0={i_0,l_o,k}(A), T_0^1={i_0,l_0}(B), T_0^2={i_0,j_0,l_0}(c)\)</span></p>
+<p><span class="arithmatex">\(level 1: T_1^0={i_1,l_1}(T_0^0, T_0^1), T_1^1={i_1,j_1,l_1}(T_0^2)\)</span></p>
+<p><span class="arithmatex">\(level 2: T_2^0={i_2,j_2,l_2}(T_1^0, T_1^1)\)</span></p>
+<h2 id="_1">基于树的分析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">数据搬运开销<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>一类是单个tile内部的数据搬运，根据空间、时间的展开维度，考虑数据重叠与否，计算数据搬运开销。计算的时候考虑的是不同子图之间的差异。</p>
+<p>另一类是tile之间的数据搬运，同样计算子图之间的差异，然后把这些差异累加起来。资源绑定的不同对搬运的计算也有区别。另外还需要考虑不同内存层级的搬运。</p>
+<h3 id="_3">资源占用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>遍历树，分析计算、存储占用。公式不打了。</p>
+<h3 id="_4">性能分析<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>延迟计算是考虑理想情况，如果计算比访存延迟高，就假设访存被完全overlap，延迟等于计算延迟，否则计算被访存overlap，延迟等于访存延迟。</p>
+<p>功耗就是把访存量和计算量传递给已有的能耗评估框架。</p>
+<h2 id="_5">设计空间探索<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../../../../pictures/TileFlow/4f0a4c84ebe2ac266de7a50bc5227b03b3b78b31ac859c428e06ee60654b46c5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="picture 3" src="../../../../pictures/TileFlow/4f0a4c84ebe2ac266de7a50bc5227b03b3b78b31ac859c428e06ee60654b46c5.png" /></a>  </p>
+<p>采用遗传算法和蒙特卡洛树 Monte Carlo Tree Search (MCTS) 搜索结合的方法。</p>
+<p>先对排序树和资源绑定原语进行编码，作为遗传算法的个体。遗传算法可以进行交叉、变异操作，生成分析树的种群。然后把分析树传递给蒙特卡洛树搜索，在约束范围内生成优化的tiling系数，每个蒙特卡洛搜索的结果都对应Figure 7&copy;中展示的编码的tiling表。经过评估之后，结果反馈给MCTS。重复上百次这样的搜索操作，优化的tiling系数被返回给遗传算法，遗传算法获得最佳的tiling系数对应的分析树的最佳性能，保留前K个分析树再生成新的种群。重复这样的迭代数百次，得到最佳的融合数据流。</p>
+<h2 id="_6">实验<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>作者用Chisel实现了一个四核的加速器，每个核心有两个PE阵列，一个用于矩阵乘(16×16)，一个用于向量计算(16×3)。每个核心有384KB的SRAM。DRAM带宽是256GB/s。Word width(数据位宽？)为16bit。在TSMC 22nm工艺下面积为 <span class="arithmatex">\(7.84mm^2\)</span>，频率400MHz。实验比较基本上都是在自己的仿真器上模拟进行的，不一一列举了。</p>
 
 
 
@@ -1112,7 +960,7 @@ E_{tot}=\sum_{i=0}^{a}\sum_{j=0}^{1}E_{D_j}\times A_{D_{i,j}} + \sum_{k=0}^{c}E_
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E5%88%97%E9%97%AE%E9%A2%98/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 一些常见的数列问题">
+          <a href="../%E8%AE%B0%E5%BD%95%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 记录自己的一些突发奇想">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1122,27 +970,11 @@ E_{tot}=\sum_{i=0}^{a}\sum_{j=0}^{1}E_{D_j}\times A_{D_{i,j}} + \sum_{k=0}^{c}E_
                 Previous
               </span>
               <div class="md-ellipsis">
-                一些常见的数列问题
+                记录自己的一些突发奇想
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../../31/flextensor-an-automatic-schedule-exploration-and-optimization-framework-for-tensor-computation-on-heterogeneous-system/" class="md-footer__link md-footer__link--next" aria-label="Next: FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                FlexTensor: An Automatic Schedule Exploration and Optimization Framework for Tensor Computation on Heterogeneous System
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
         
       </nav>
     
